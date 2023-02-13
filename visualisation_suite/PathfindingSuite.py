@@ -1,0 +1,2 @@
+class PathfindingSuite():
+    pass

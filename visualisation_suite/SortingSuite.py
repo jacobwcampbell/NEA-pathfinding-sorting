@@ -1,0 +1,2 @@
+class SortingSuite():
+    pass
