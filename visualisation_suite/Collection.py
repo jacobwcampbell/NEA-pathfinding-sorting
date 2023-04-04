@@ -69,7 +69,7 @@ class Collection():
             compared = False
             # Create the item with this iteration's calculated attributes shown above
             item = Item(
-                heigh = height,
+                height = height,
                 width = width,
                 value = value,
                 index = index,
@@ -86,6 +86,13 @@ class Collection():
        ''' Randomly Shuffle Array of Items'''
        # print("Collection's Shuffle Items Called")
        random.shuffle(self.items)
+       self.update_indicies()
+    
+    def update_indicies(self) -> None:
+        ''' Update indices of sorting items'''
+        for item in self.items:
+            item.set_index(self.items.index(item))
+
     
     def draw(self, window) -> None:
         ''' Draw sorting items to window '''
@@ -94,18 +101,19 @@ class Collection():
             item.draw(window)
 
     def update(self) -> None:
-        ''' Attempt to access the next frame by accessing the sorting algorithm generator'''
+        '''Attempt to access the next frame by accessing the sorting algorithm generator'''
         # Only update when a sorting algorithm is taking place
         if self.sorting:
             try:
                 # Access next iteration of the generator
-                next(self.sorting_algorithm_gen())
+                next(self.sorting_algorithm_gen)
             # If the sorting algorithm has finished, set sorting bool to false
             except StopIteration:
                 self.sorting = False
+                print("FINISHED")
 
     def select_sorting(self, algorithm) -> None:
-        ''' Selects a sorting algorithm from user input and creates its generator.'''
+        '''Selects a sorting algorithm from user input and creates its generator.'''
         self.sorting = True
         self.sorting_algorithm = self.sorting_algorithms[algorithm]
         # Calling the sorting algorithm function for the first
@@ -113,11 +121,36 @@ class Collection():
         self.sorting_algorithm_gen = self.sorting_algorithm()
     
     def get_sorting(self) -> bool:
-        ''' Returns whether a sorting algorithm is currently taking place.'''
+        '''Returns whether a sorting algorithm is currently taking place.'''
         return self.sorting
     
     def bubblesort(self) -> bool:
-        print("Bubblesort Selected")
+        ''' Bubblesort the sorting items in ascending order'''
+        n = len(self.items)
+        swapped = False
+        # Each i loop is per pass
+        for i in range(n-1):
+            # Each j loop is per element per pass
+            swapped = False
+            for j in range(n-i-1):
+                # Select the current and next item as the selected item and compared item
+                # This is used for drawing purposes
+                self.items[j].set_selected(True)
+                self.items[j+1].set_compared(True)
+                if self.items[j] > self.items[j+1]:
+                    swapped = True
+                    self.items[j], self.items[j+1] = self.items[j+1], self.items[j]
+
+                # Get a new frame after each item is selected
+                yield True
+                # Deselect both items after the new frame
+                self.items[j].set_selected(False)
+                self.items[j+1].set_compared(False)
+
+            if not swapped:
+                print("done")
+                break
+            
 
     def mergesort(self) -> bool:
         print("Mergesort Selected")
@@ -132,7 +165,7 @@ class Collection():
         pass
 
     def reset(self) -> None:
-        ''' Reset the sorting process and generate new items'''
+        '''Reset the sorting process and generate new items'''
         self.sorting = False
         self.generate_items()
         self.shuffle_items()
@@ -152,9 +185,36 @@ if __name__ == "__main__":
     )
     c.generate_items()
     c.shuffle_items()
-    c.select_sorting("B")   # Expect "Bubblesort selected"
-    c.select_sorting("M")   # Expect "Mergesort selected"
-    c.select_sorting("Q")   # Expect "Quicksort selected"
-    c.select_sorting("I")   # Expect "Insertionsort selected"
-
-
+    for item in c.items: print(item, end="")
+    print("\n\n")
+    c.select_sorting("B")
+    c.update()
+    for item in c.items: print(item, end="")
+    print("\n")
+    c.update()
+    for item in c.items: print(item, end="")
+    print("\n")
+    c.update()
+    for item in c.items: print(item, end="")
+    print("\n")
+    c.update()
+    for item in c.items: print(item, end="")
+    print("\n")
+    c.update()
+    for item in c.items: print(item, end="")
+    print("\n")
+    c.update()
+    for item in c.items: print(item, end="")
+    print("\n")
+    c.update()
+    for item in c.items: print(item, end="")
+    print("\n")
+    c.update()
+    for item in c.items: print(item, end="")
+    print("\n")
+    c.update()
+    for item in c.items: print(item, end="")
+    print("\n")
+    c.update()
+    for item in c.items: print(item, end="")
+    print("\n")
