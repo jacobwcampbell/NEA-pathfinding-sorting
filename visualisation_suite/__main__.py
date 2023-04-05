@@ -1,3 +1,7 @@
+import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+import pygame
+
 from VisualisationSuite import VisualisationSuite
 
 if __name__ == '__main__': # Ran Only when code is executed as a script not module

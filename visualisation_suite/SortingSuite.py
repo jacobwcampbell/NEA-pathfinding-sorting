@@ -40,6 +40,7 @@ class SortingSuite():
         self.items.generate_items()
         # randomly shuffle bars to sort
         self.items.shuffle_items()
+        
 
 
     def main_loop(self) -> None:
@@ -51,6 +52,8 @@ class SortingSuite():
             self.items.update()
             # draw the new frame
             self.draw()
+            # update (refresh) display
+            pygame.display.update()
 
     def draw(self) -> None:
         '''Draw a Frame'''
@@ -79,6 +82,12 @@ class SortingSuite():
                 if event.key == pygame.K_r:
                     # call reset method of items
                     self.items.reset()
+            
+            elif event.type == pygame.QUIT:
+                # quit pygame application
+                pygame.quit()
+                # quit python program
+                sys.exit(0)
 
     def load_config(self) -> dict:
         '''Load the configuration file for the sorting suite. '''
