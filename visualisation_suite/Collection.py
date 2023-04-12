@@ -114,7 +114,7 @@ class Collection():
             try:
                 # Access next iteration of the generator
                 next(self.sorting_algorithm_gen)
-                time.sleep(0.5)
+                #time.sleep(0)
             # If the sorting algorithm has finished, set sorting bool to false
             except StopIteration:
                 self.sorting = False
@@ -151,7 +151,7 @@ class Collection():
                 yield True
                 if self.items[j] > self.items[j+1]:
                     swapped = True
-                    print(f"Items {j} and {j+1} Swapped")
+                    #print(f"Items {j} and {j+1} Swapped")
                     self.items[j], self.items[j+1] = self.items[j+1], self.items[j]
 
                 # Get a new frame after each item is selected

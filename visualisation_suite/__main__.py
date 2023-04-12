@@ -1,6 +1,7 @@
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
+# hide the "hello from the pygame community message"
 
 from VisualisationSuite import VisualisationSuite
 
